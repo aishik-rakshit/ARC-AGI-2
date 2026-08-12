@@ -1,0 +1,14 @@
+[
+  {
+    "timestamp": "2026-08-13T03:03:48",
+    "hint": "In torchrun DDP, set CUDA to LOCAL_RANK before importing Unsloth, and import Unsloth before TRL.",
+    "phase": 4,
+    "type_hint": "lesson"
+  },
+  {
+    "timestamp": "2026-08-13T03:03:48",
+    "hint": "Preserve global batch under DDP: per-device batch times accumulation times world size.",
+    "phase": 4,
+    "type_hint": "lesson"
+  }
+]

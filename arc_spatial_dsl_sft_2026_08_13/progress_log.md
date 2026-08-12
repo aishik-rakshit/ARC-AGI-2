@@ -15,3 +15,4 @@
 - 2026-08-13: Defined the global ARC spatial-program SFT objective and Kaggle L4 target.
 - 2026-08-13: Chose procedurally generated `messages` episodes with executable JSON labels.
 - 2026-08-13: Notebook implementation in progress; training has not been executed locally because Unsloth requires CUDA.
+- 2026-08-13: Updated training to four-process DDP for Kaggle 4 × L4; preserved global batch size 16.
