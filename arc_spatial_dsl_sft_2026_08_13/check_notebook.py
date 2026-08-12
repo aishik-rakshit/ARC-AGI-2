@@ -19,7 +19,10 @@ assert notebook_source.index("torch.cuda.set_device(LOCAL_RANK)") < notebook_sou
 assert notebook_source.index("from unsloth import") < notebook_source.index("from trl import")
 assert "local_files_only=True" in notebook_source
 assert "aishikai/qwen3-4b-instruct-2507-unsloth-4bit" in notebook_source
-assert "pip install" not in notebook_source
+assert "aishikai/offline-unsloth-trl-wheelhouse-py311" in notebook_source
+assert '"--no-index", "--find-links"' in notebook_source
+assert "processing_class=tokenizer" in notebook_source
+assert "max_length=MAX_SEQ_LENGTH" in notebook_source
 
 for tag in ("dsl-core", "data-generator"):
     cell = next(cell for cell in notebook["cells"] if tag in cell["metadata"].get("tags", []))

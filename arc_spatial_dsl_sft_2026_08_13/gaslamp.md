@@ -23,7 +23,8 @@ Train one global model to infer an executable spatial DSL program from ARC-style
 
 - Target: Kaggle 4 × NVIDIA L4, Python 3.11 runtime.
 - Backend: Unsloth, TRL, 4-bit QLoRA, four-process single-node DDP.
-- Network: disabled. The notebook performs no installs or Hub downloads and loads the attached model with `local_files_only=True`.
+- Network: disabled. The notebook installs its Python stack from the attached private Dataset `aishikai/offline-unsloth-trl-wheelhouse-py311` and loads the attached model with `local_files_only=True`.
+- The Kaggle GPU image supplies PyTorch, CUDA, Triton, torchao, torchvision, and xFormers so their binary builds remain matched.
 - Local macOS validation covers only the CPU generator and executor.
 
 ## Hyperparameters
@@ -64,4 +65,4 @@ Run the notebook top-to-bottom with Kaggle's 4 × L4 accelerator. It launches `t
 - Primary metric is executed query-grid accuracy; exact JSON string matching is only diagnostic.
 - Cosmetic permutations are not used to multiply individual puzzles.
 - Do not replace `torchrun` with a normal Python call; that silently falls back to one GPU.
-- Attach the private Kaggle Model before starting; the notebook resolves its versioned mount path under `/kaggle/input`.
+- Attach both private Kaggle resources before starting: Model `aishikai/qwen3-4b-instruct-2507-unsloth-4bit` and Dataset `aishikai/offline-unsloth-trl-wheelhouse-py311`.
