@@ -3,7 +3,7 @@
 - Problem: train one fixed language model to infer an executable spatial transformation program from ARC-style demonstrations.
 - Audience: ARC-AGI research and Kaggle experimentation.
 - Method: supervised fine-tuning (SFT) on procedurally generated episodes with exact program labels.
-- Base model: `unsloth/Qwen3-4B-Instruct-2507-unsloth-bnb-4bit`.
+- Base model: private Kaggle Model `aishikai/qwen3-4b-instruct-2507-unsloth-4bit`, mirrored unchanged from `unsloth/Qwen3-4B-Instruct-2507-unsloth-bnb-4bit`.
 - Training hardware: Kaggle 4 × NVIDIA L4 GPUs using single-node DDP.
 - Output: a lightweight LoRA adapter plus executable-program accuracy on held-out synthetic episodes.
 

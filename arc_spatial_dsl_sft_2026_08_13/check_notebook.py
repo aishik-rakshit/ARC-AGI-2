@@ -17,6 +17,9 @@ assert "per_device_train_batch_size=2" in notebook_source
 assert "Expected four DDP processes" in notebook_source
 assert notebook_source.index("torch.cuda.set_device(LOCAL_RANK)") < notebook_source.index("from unsloth import")
 assert notebook_source.index("from unsloth import") < notebook_source.index("from trl import")
+assert "local_files_only=True" in notebook_source
+assert "aishikai/qwen3-4b-instruct-2507-unsloth-4bit" in notebook_source
+assert "pip install" not in notebook_source
 
 for tag in ("dsl-core", "data-generator"):
     cell = next(cell for cell in notebook["cells"] if tag in cell["metadata"].get("tags", []))

@@ -7,7 +7,7 @@ Train one global model to infer an executable spatial DSL program from ARC-style
 ## Method
 
 - SFT because every procedural episode has an exact program label.
-- Base: `unsloth/Qwen3-4B-Instruct-2507-unsloth-bnb-4bit`.
+- Base: private Kaggle Model `aishikai/qwen3-4b-instruct-2507-unsloth-4bit`, mirrored from the Unsloth Hugging Face checkpoint.
 - QLoRA: rank 32, alpha 32, dropout 0; attention and MLP projections targeted.
 - The adapter is global. It is not retrained per puzzle.
 
@@ -23,6 +23,7 @@ Train one global model to infer an executable spatial DSL program from ARC-style
 
 - Target: Kaggle 4 × NVIDIA L4, Python 3.11 runtime.
 - Backend: Unsloth, TRL, 4-bit QLoRA, four-process single-node DDP.
+- Network: disabled. The notebook performs no installs or Hub downloads and loads the attached model with `local_files_only=True`.
 - Local macOS validation covers only the CPU generator and executor.
 
 ## Hyperparameters
@@ -63,3 +64,4 @@ Run the notebook top-to-bottom with Kaggle's 4 × L4 accelerator. It launches `t
 - Primary metric is executed query-grid accuracy; exact JSON string matching is only diagnostic.
 - Cosmetic permutations are not used to multiply individual puzzles.
 - Do not replace `torchrun` with a normal Python call; that silently falls back to one GPU.
+- Attach the private Kaggle Model before starting; the notebook resolves its versioned mount path under `/kaggle/input`.
