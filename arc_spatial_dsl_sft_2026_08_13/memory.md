@@ -25,5 +25,5 @@
 - The local machine is macOS; the deliverable targets Kaggle CUDA rather than local training.
 - Evaluation must execute predicted programs, not rely only on exact label-string matching.
 - Keep synthetic transformations diverse; cosmetic permutations are a regularizer, not the dataset.
-- Offline userspace packages come from `aishikai/offline-unsloth-trl-wheelhouse-py311`; GPU-coupled packages remain Kaggle-runtime-provided.
+- Offline packages come from `aishikai/offline-unsloth-trl-wheelhouse-py312-cu128`; it supplies xFormers 0.0.34, torchao 0.16.0, and bitsandbytes 0.50.0 for Kaggle's PyTorch 2.10/CUDA 12.8 image.
 - Pin TRL 0.24.0 for Unsloth 2026.8.13; use `processing_class` and put dataset options in `SFTConfig`.

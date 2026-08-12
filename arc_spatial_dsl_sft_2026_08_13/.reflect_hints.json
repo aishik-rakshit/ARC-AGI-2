@@ -13,7 +13,7 @@
   },
   {
     "timestamp": "2026-08-13T03:59:40",
-    "hint": "Keep PyTorch, CUDA, Triton, torchao, torchvision, and xFormers runtime-provided; install the portable Unsloth and TRL stack from the attached offline wheelhouse.",
+    "hint": "Probe Kaggle's live image before building offline wheels: this runtime needs Python 3.12, xFormers 0.0.34, torchao 0.16, and bitsandbytes 0.50 for PyTorch 2.10/CUDA 12.8.",
     "phase": 3,
     "type_hint": "lesson"
   }

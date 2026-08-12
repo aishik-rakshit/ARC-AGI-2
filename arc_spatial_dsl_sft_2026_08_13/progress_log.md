@@ -18,3 +18,4 @@
 - 2026-08-13: Updated training to four-process DDP for Kaggle 4 × L4; preserved global batch size 16.
 - 2026-08-13: Removed online installation/model lookup; switched to the private offline Kaggle Model mount.
 - 2026-08-13: Published and attached a reusable Python 3.11 Unsloth/TRL wheelhouse; pinned TRL 0.24.0 and updated its SFT API usage.
+- 2026-08-13: Live Kaggle probe found Python 3.12.13, PyTorch 2.10.0+cu128, and no xFormers; replaced the wheelhouse with a matching Python 3.12/CUDA 12.8 build.
