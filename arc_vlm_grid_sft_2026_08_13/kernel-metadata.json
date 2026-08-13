@@ -1,0 +1,21 @@
+{
+  "id": "aishikai/arc-vlm-grid-sft",
+  "title": "ARC VLM Exact Grid SFT",
+  "code_file": "arc_vlm_grid_sft.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "dataset_sources": [
+    "aishikai/offline-unsloth-trl-wheelhouse-py312-cu128"
+  ],
+  "competition_sources": [
+    "arc-prize-2026-arc-agi-2"
+  ],
+  "model_sources": [
+    "aishikai/qwen3-vl-4b-instruct-unsloth-bnb-4bit/Transformers/bnb-4bit/1"
+  ],
+  "machine_shape": "NvidiaL4"
+}

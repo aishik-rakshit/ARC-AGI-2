@@ -1,0 +1,8 @@
+{
+  "ownerSlug": "aishikai",
+  "title": "Qwen3 VL 4B Instruct Unsloth BNB 4bit",
+  "slug": "qwen3-vl-4b-instruct-unsloth-bnb-4bit",
+  "isPrivate": true,
+  "description": "Offline mirror of Unsloth's 4-bit Qwen3-VL 4B Instruct checkpoint for Kaggle notebooks.",
+  "provenanceSources": "https://huggingface.co/unsloth/Qwen3-VL-4B-Instruct-unsloth-bnb-4bit"
+}
