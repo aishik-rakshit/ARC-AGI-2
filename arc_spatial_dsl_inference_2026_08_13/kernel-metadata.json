@@ -1,0 +1,24 @@
+{
+  "id": "aishikai/arc-spatial-program-offline-inference",
+  "title": "ARC Spatial Program Offline Inference",
+  "code_file": "arc_spatial_program_inference.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "dataset_sources": [
+    "aishikai/offline-unsloth-trl-wheelhouse-py312-cu128"
+  ],
+  "kernel_sources": [
+    "aishikai/arc-spatial-program-sft"
+  ],
+  "competition_sources": [
+    "arc-prize-2026-arc-agi-2"
+  ],
+  "model_sources": [
+    "aishikai/qwen3-4b-instruct-2507-unsloth-4bit/Transformers/bnb-4bit/1"
+  ],
+  "machine_shape": "NvidiaL4"
+}
