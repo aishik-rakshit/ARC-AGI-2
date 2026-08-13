@@ -31,6 +31,7 @@ with tempfile.TemporaryDirectory() as temporary:
     row = load_from_disk(root / "data/train")[0]
     assert row["images"][0].mode == "RGB"
     assert row["prompt"][0]["content"][0]["type"] == "image"
+    assert row["prompt"][0]["content"][1]["image"] is None
     assert json.loads(row["completion"][0]["content"][0]["text"])["output"] == row["output"]
     assert "QUERY INPUT" in row["prompt"][0]["content"][1]["text"]
     validate_grid(row["output"])

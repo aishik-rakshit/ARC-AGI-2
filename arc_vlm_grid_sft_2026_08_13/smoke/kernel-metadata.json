@@ -1,7 +1,7 @@
 {
-  "id": "aishikai/arc-vlm-grid-sft",
-  "title": "ARC VLM Grid SFT",
-  "code_file": "arc_vlm_grid_sft.ipynb",
+  "id": "aishikai/arc-vlm-grid-sft-smoke-test",
+  "title": "ARC VLM Grid SFT Smoke Test",
+  "code_file": "arc_vlm_grid_sft_smoke.ipynb",
   "language": "python",
   "kernel_type": "notebook",
   "is_private": true,

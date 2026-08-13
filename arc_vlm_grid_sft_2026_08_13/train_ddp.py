@@ -12,16 +12,16 @@ import torch
 
 SEED = 3407
 MAX_LENGTH = 8192
+SMOKE_TEST = os.environ.get("ARC_VLM_SMOKE_TEST") == "1"
 WORLD_SIZE = int(os.environ.get("WORLD_SIZE", "1"))
 LOCAL_RANK = int(os.environ.get("LOCAL_RANK", "0"))
 if WORLD_SIZE != 4:
     raise RuntimeError(f"Expected four DDP processes, got {WORLD_SIZE}")
 torch.cuda.set_device(LOCAL_RANK)
 
+from unsloth import FastVisionModel, UnslothVisionDataCollator
 from datasets import load_from_disk
 from trl import SFTConfig, SFTTrainer
-from unsloth import FastVisionModel
-from unsloth.trainer import UnslothVisionDataCollator
 
 from gaslamp_callback import GaslampDashboardCallback
 
@@ -50,6 +50,39 @@ model = FastVisionModel.get_peft_model(
     loftq_config=None,
     target_modules="all-linear",
 )
+QWEN_EOS_TOKEN = "<|im_end|>"
+if processor.tokenizer.convert_tokens_to_ids(QWEN_EOS_TOKEN) == processor.tokenizer.unk_token_id:
+    raise RuntimeError(f"Model tokenizer is missing {QWEN_EOS_TOKEN}")
+processor.tokenizer.eos_token = QWEN_EOS_TOKEN
+
+training_args = SFTConfig(
+    output_dir="outputs/checkpoints",
+    logging_dir="outputs/logs",
+    per_device_train_batch_size=1,
+    gradient_accumulation_steps=4,
+    num_train_epochs=1,
+    max_steps=2 if SMOKE_TEST else -1,
+    learning_rate=1e-4,
+    warmup_ratio=0.03,
+    lr_scheduler_type="cosine",
+    optim="adamw_8bit",
+    weight_decay=0.01,
+    bf16=True,
+    fp16=False,
+    logging_steps=5,
+    save_strategy="epoch",
+    report_to="tensorboard",
+    seed=SEED,
+    data_seed=SEED,
+    max_length=MAX_LENGTH,
+    completion_only_loss=True,
+    remove_unused_columns=False,
+    dataset_kwargs={"skip_prepare_dataset": True},
+    packing=False,
+    padding_free=False,
+    ddp_find_unused_parameters=False,
+)
+training_args.eos_token = None
 
 trainer = SFTTrainer(
     model=model,
@@ -65,32 +98,7 @@ trainer = SFTTrainer(
         completion_only_loss=True,
     ),
     callbacks=[GaslampDashboardCallback(task_type="vision")],
-    args=SFTConfig(
-        output_dir="outputs/checkpoints",
-        logging_dir="outputs/logs",
-        per_device_train_batch_size=1,
-        gradient_accumulation_steps=4,
-        num_train_epochs=1,
-        learning_rate=1e-4,
-        warmup_ratio=0.03,
-        lr_scheduler_type="cosine",
-        optim="adamw_8bit",
-        weight_decay=0.01,
-        bf16=True,
-        fp16=False,
-        logging_steps=5,
-        save_strategy="epoch",
-        report_to="tensorboard",
-        seed=SEED,
-        data_seed=SEED,
-        max_length=MAX_LENGTH,
-        completion_only_loss=True,
-        remove_unused_columns=False,
-        dataset_kwargs={"skip_prepare_dataset": True},
-        packing=False,
-        padding_free=False,
-        ddp_find_unused_parameters=False,
-    ),
+    args=training_args,
 )
 trainer.train()
 if trainer.is_world_process_zero():

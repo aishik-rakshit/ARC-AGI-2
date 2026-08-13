@@ -26,6 +26,14 @@ def parse_output(text):
     return grid
 
 
+def clean_messages(messages):
+    return [{
+        "role": message["role"],
+        "content": [{key: value for key, value in item.items() if value is not None}
+                    for item in message["content"]],
+    } for message in messages]
+
+
 def main():
     import torch
     from datasets import load_from_disk
@@ -42,11 +50,12 @@ def main():
 
     @torch.inference_mode()
     def predict(row):
-        text = processor.apply_chat_template(row["prompt"], tokenize=False, add_generation_prompt=True)
+        messages = clean_messages(row["prompt"])
+        text = processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
         inputs = processor(text=[text], images=row["images"], return_tensors="pt").to(model.device)
         generated = model.generate(
             **inputs,
-            max_new_tokens=2304,
+            max_new_tokens=128 if os.environ.get("ARC_VLM_SMOKE_TEST") == "1" else 2304,
             do_sample=False,
             use_cache=True,
             pad_token_id=processor.tokenizer.eos_token_id,
@@ -56,6 +65,8 @@ def main():
         )
 
     dataset = load_from_disk("data/eval")
+    if os.environ.get("ARC_VLM_SMOKE_TEST") == "1":
+        dataset = dataset.select(range(2))
     records = []
     for index, row in enumerate(dataset):
         text = predict(row)

@@ -38,6 +38,8 @@ from pathlib import Path
 os.environ["HF_HUB_OFFLINE"] = "1"
 os.environ["TRANSFORMERS_OFFLINE"] = "1"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
+SMOKE_TEST = False
+os.environ["ARC_VLM_SMOKE_TEST"] = "1" if SMOKE_TEST else "0"
 
 WHEELHOUSE = Path("/kaggle/input/datasets/aishikai/offline-unsloth-trl-wheelhouse-py312-cu128")
 requirements = WHEELHOUSE / "requirements.in"
@@ -99,7 +101,7 @@ print("Training dashboard asset ready.")
 
 assert torch.cuda.device_count() == 4, f"Select 4 x L4; found {torch.cuda.device_count()} GPU(s)"
 !nvidia-smi -L
-!torchrun --standalone --nproc_per_node=4 train_ddp.py
+subprocess.run(["torchrun", "--standalone", "--nproc_per_node=4", "train_ddp.py"], check=True)
 '''),
     cell("markdown", """## Exact-grid validation
 
