@@ -1,0 +1,24 @@
+{
+  "id": "aishikai/arc-vlm-grid-inference",
+  "title": "ARC VLM Grid Inference",
+  "code_file": "arc_vlm_grid_inference.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "dataset_sources": [
+    "aishikai/offline-unsloth-trl-wheelhouse-py312-cu128"
+  ],
+  "kernel_sources": [
+    "aishikai/arc-vlm-grid-sft"
+  ],
+  "competition_sources": [
+    "arc-prize-2026-arc-agi-2"
+  ],
+  "model_sources": [
+    "aishikai/qwen3-vl-4b-instruct-unsloth-bnb-4bit/Transformers/bnb-4bit/1"
+  ],
+  "machine_shape": "NvidiaL4"
+}
